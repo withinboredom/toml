@@ -7,8 +7,11 @@ use Withinboredom\Toml\Ast\Node;
 use Withinboredom\Toml\Helpers\Pattern;
 use Withinboredom\Toml\Helpers\Range;
 
-class EscapedString implements Node {
-    private function __construct(public string $string) {}
+class EscapedString implements Node
+{
+    private function __construct(public string $string)
+    {
+    }
 
     public static function parse(Code $code): EscapedString
     {

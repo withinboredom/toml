@@ -2,7 +2,9 @@
 
 namespace Withinboredom\Toml\Ast;
 
-class Eof extends \RuntimeException
+use RuntimeException;
+
+class Eof extends RuntimeException
 {
     public function __construct()
     {

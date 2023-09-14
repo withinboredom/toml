@@ -7,9 +7,9 @@ use Withinboredom\Toml\Ast\BasicString\BasicString;
 use Withinboredom\Toml\Ast\Code;
 use Withinboredom\Toml\Ast\Detectable;
 use Withinboredom\Toml\Ast\LiteralString\LiteralString;
-use Withinboredom\Toml\Ast\Node;
 use Withinboredom\Toml\Ast\MultiLineBasicString\BasicString as MultiLineString;
 use Withinboredom\Toml\Ast\MultiLineLiteralString\LiteralString as MultiLineLiteralString;
+use Withinboredom\Toml\Ast\Node;
 
 class StringValue implements Detectable, Node
 {

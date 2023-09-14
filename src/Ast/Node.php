@@ -2,6 +2,7 @@
 
 namespace Withinboredom\Toml\Ast;
 
-interface Node {
+interface Node
+{
     public static function parse(Code $code): Node|null;
 }

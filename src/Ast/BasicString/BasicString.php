@@ -1,6 +1,7 @@
 <?php
 
 namespace Withinboredom\Toml\Ast\BasicString;
+
 use Withinboredom\Toml\Ast\Code;
 use Withinboredom\Toml\Ast\Detectable;
 use Withinboredom\Toml\Ast\Node;

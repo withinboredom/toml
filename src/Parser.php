@@ -3,6 +3,7 @@
 namespace Withinboredom\Toml;
 
 use Closure;
+use Exception;
 
 class Parser
 {
@@ -64,7 +65,7 @@ TEST;
             }
         }
 
-        throw new \Exception('Unexpected end of input');
+        throw new Exception('Unexpected end of input');
     }
 
     private function expression(): bool
@@ -97,7 +98,7 @@ TEST;
     private function peek(int $count = 1): string
     {
         if ($this->position + $count > strlen($this->input)) {
-            throw new \Exception('Unexpected end of input');
+            throw new Exception('Unexpected end of input');
         }
         return substr($this->input, $this->position, $count);
     }
@@ -117,10 +118,6 @@ TEST;
     private function key(): bool
     {
         return $this->simpleKey() || $this->dottedKey();
-    }
-
-    private function dottedKey(): false|string {
-
     }
 
     private function simpleKey(): false|string
@@ -161,7 +158,7 @@ TEST;
             if (ctype_alnum($x))
                 return true;
 
-            foreach(self::KEY_CHARS as $char) {
+            foreach (self::KEY_CHARS as $char) {
                 if (is_array($char)) {
                     if (ord($x) >= $char[0] && ord($x) <= $char[1]) {
                         return true;
@@ -174,11 +171,16 @@ TEST;
             return false;
         });
 
-        if(strlen($value) === 0) {
+        if (strlen($value) === 0) {
             return false;
         }
 
         return $value;
+    }
+
+    private function dottedKey(): false|string
+    {
+
     }
 
     private function consumeNewLine(): bool

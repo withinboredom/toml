@@ -7,7 +7,8 @@ use Withinboredom\Toml\Ast\Code;
 use Withinboredom\Toml\Ast\Detectable;
 use Withinboredom\Toml\Ast\Node;
 
-class LiteralString implements Detectable, Node {
+class LiteralString implements Detectable, Node
+{
     private function __construct(public string $value)
     {
     }

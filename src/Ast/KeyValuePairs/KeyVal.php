@@ -3,13 +3,15 @@
 namespace Withinboredom\Toml\Ast\KeyValuePairs;
 
 
+use DateTimeInterface;
 use Withinboredom\Toml\Ast\Code;
 use Withinboredom\Toml\Ast\Detectable;
 use Withinboredom\Toml\Ast\Node;
 use Withinboredom\Toml\Ast\Whitespace\Ws;
 
-class KeyVal implements Detectable , Node {
-    private function __construct(public array $key, public string|bool|array|\DateTimeInterface|float|int $value)
+class KeyVal implements Detectable, Node
+{
+    private function __construct(public array $key, public string|bool|array|DateTimeInterface|float|int $value)
     {
     }
 
@@ -21,7 +23,7 @@ class KeyVal implements Detectable , Node {
     public static function parse(Code $code): KeyVal|null
     {
         $key = Key::parse($code);
-        if($key === null) {
+        if ($key === null) {
             return null;
         }
         $fullkey = [$key->name, ...$key->subKeys];

@@ -26,6 +26,13 @@ cancel = ["never", 'gonna',
 """give""", '''you'''
 # up
 ]
+number.a = 1
+number.b = 1.0
+number.c = 1e1
+number.d = 1.0e1
+number.e = 1.0e+1
+number.f = 1.0e-1
+number.g = 1_000
 TOML;
     $code = new \Withinboredom\Toml\Ast\Code($toml);
     $result = \Withinboredom\Toml\Ast\Structure\Expression::parse($code)->body;
@@ -43,6 +50,15 @@ TOML;
             'gonna',
             'give',
             'you',
+        ],
+        'number' => [
+            'a' => 1,
+            'b' => 1.0,
+            'c' => 10.0,
+            'd' => 10.0,
+            'e' => 10.0,
+            'f' => 0.1,
+            'g' => 1000,
         ],
     ])
         ->and($code->errors)->toBeEmpty();

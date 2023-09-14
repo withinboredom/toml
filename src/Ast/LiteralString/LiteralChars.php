@@ -1,4 +1,5 @@
 <?php
+
 namespace Withinboredom\Toml\Ast\LiteralString;
 
 
@@ -6,7 +7,8 @@ use Withinboredom\Toml\Ast\Code;
 use Withinboredom\Toml\Ast\Node;
 use Withinboredom\Toml\Helpers\Range;
 
-class LiteralChars implements Node {
+class LiteralChars implements Node
+{
     private function __construct(public string $string)
     {
     }
