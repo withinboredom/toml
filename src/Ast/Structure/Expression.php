@@ -2,13 +2,14 @@
 
 namespace Withinboredom\Toml\Ast\Structure;
 
-
 use Withinboredom\Toml\Ast\Code;
 use Withinboredom\Toml\Ast\Comment\Comment;
 use Withinboredom\Toml\Ast\Eof;
 use Withinboredom\Toml\Ast\KeyValuePairs\KeyVal;
 use Withinboredom\Toml\Ast\NewLine\NewLine;
 use Withinboredom\Toml\Ast\Node;
+use Withinboredom\Toml\Ast\Table\ArrayTable;
+use Withinboredom\Toml\Ast\Table\StandardTable;
 use Withinboredom\Toml\Ast\Whitespace\Ws;
 
 class Expression implements Node
@@ -20,7 +21,8 @@ class Expression implements Node
 
     public static function parse(Code $code): Expression|null
     {
-        $built = [];
+        $root = [];
+        $built = &$root;
         actualExpression:
         Ws::parse($code);
 
@@ -33,6 +35,28 @@ class Expression implements Node
                     $a = &$a[$key];
                 }
                 $a = $next->value;
+            }
+        }
+
+        if (ArrayTable::is($code)) {
+            $next = ArrayTable::parse($code);
+            if($next !== null) {
+                $a = &$root;
+                foreach($next->key as $key) {
+                    $a[$key] ??= [];
+                    $a = &$a[$key][]; // this is the only difference between this and standard table
+                }
+                $built = &$a;
+            }
+        } elseif (StandardTable::is($code)) {
+            $next = StandardTable::parse($code);
+            if ($next !== null) {
+                $a = &$root;
+                foreach ($next->key as $key) {
+                    $a[$key] ??= [];
+                    $a = &$a[$key];
+                }
+                $built = &$a;
             }
         }
 
@@ -63,6 +87,6 @@ class Expression implements Node
             goto actualExpression;
         }
 
-        return new self($built);
+        return new self($root);
     }
 }

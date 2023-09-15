@@ -21,7 +21,7 @@ class DottedKey implements Detectable, Node
 
     public static function parse(Code $code): DottedKey|null
     {
-        $value = SimpleKey::parse($code)->value;
+        $value = SimpleKey::parse($code)?->value;
         if ($value === null) {
             return null;
         }

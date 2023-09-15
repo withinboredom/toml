@@ -14,18 +14,21 @@ TOML;
     expect($code->errors)->toBeEmpty();
 });
 
-it('can parse strings', function() {
+it('can parse strings', function () {
     $toml = <<<TOML
 string.a = "a"
 string.b = 'b'
+[test]
 string.c = """c"""
 string.d = '''d'''
+[]
 "hello" = true
 foo = false
 cancel = ["never", 'gonna', 
 """give""", '''you'''
 # up
 ]
+[[complex]]
 number.a = 1
 number.b = 1.0
 number.c = 1e1
@@ -40,8 +43,12 @@ TOML;
         'string' => [
             'a' => 'a',
             'b' => 'b',
-            'c' => 'c',
-            'd' => 'd',
+        ],
+        'test' => [
+            'string' => [
+                'c' => 'c',
+                'd' => 'd',
+            ],
         ],
         'hello' => true,
         'foo' => false,
@@ -51,15 +58,19 @@ TOML;
             'give',
             'you',
         ],
-        'number' => [
-            'a' => 1,
-            'b' => 1.0,
-            'c' => 10.0,
-            'd' => 10.0,
-            'e' => 10.0,
-            'f' => 0.1,
-            'g' => 1000,
-        ],
+        'complex' => [
+            [
+                'number' => [
+                    'a' => 1,
+                    'b' => 1.0,
+                    'c' => 10.0,
+                    'd' => 10.0,
+                    'e' => 10.0,
+                    'f' => 0.1,
+                    'g' => 1000,
+                ],
+            ]
+        ]
     ])
         ->and($code->errors)->toBeEmpty();
 });
